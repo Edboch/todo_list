@@ -6,6 +6,60 @@
     <title>To Do List</title>
 </head>
 <body>
+    <div class="container">
+        <div class="sidebar">
+            <h4>Projects</h4>
+        </div>
+        <div class="main-display">
+            <h4>Todos</h4>
+        </div>
+    </div>
+
+    <dialog id="project-modal">
+        <form action="#" method="dialog">
+            <h3>New Project</h3>
+            <div>
+                <label for="project">Name:</label>
+                <input type="text" id="project" name="project_name">
+            </div>
+            <button type="button">Submit</button>
+            <button type="button">Cancel</button>
+        </form>
+    </dialog>
+
+    <dialog id="todo-modal">
+        <form action="#" method="dialog">
+            <h3>New Todo</h3>
+            <div>
+                <label for="title">Name:</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+            <div>
+                <label for="desc">Description:</label>
+                <textarea type="text" id="desc" name="desc" required></textarea>
+            </div>
+            <div>
+                <label for="due-date">Due Date:</label>
+                <input type="date" id="due-date" name="due_date" required>
+            </div>
+            <div>
+                <label for="priority">Priority:</label>
+                <select name="priority" id="priority" required>
+                    <option value="" disabled selected>Select Priority</option>
+                    <option value="low">Low</option>
+                    <option value="medium">Medium</option>
+                    <option value="high">High</option>
+                </select>
+            </div>
+            <div>
+                <label for="completed">Completed:</label>
+                <input type="checkbox" id="completed" name="completed">
+            </div>
+            <button type="button">Submit</button>
+            <button type="button">Cancel</button>
+        </form>
+
+    </dialog>
     
 </body>
 </html>
