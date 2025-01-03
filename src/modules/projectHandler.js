@@ -5,6 +5,7 @@ import { renderProjects } from './renderProjects.js';
 export const projectHandler = (() => {
     
     const projectManager = new ProjectManager();
+    let selectedProject = null;
     
     function init() {
         // Default project
@@ -39,6 +40,13 @@ export const projectHandler = (() => {
                 const deleteIndex = target.getAttribute('id');
                 deleteProject(deleteIndex);
                 renderDisplay();
+            } else if (target.classList.contains('project-card')) {
+                if (selectedProject) {
+                    selectedProject.classList.remove('selected')
+                }
+                
+                target.classList.add('selected');
+                selectedProject = target
             }
         })
     }
