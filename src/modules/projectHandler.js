@@ -1,5 +1,5 @@
-import { ProjectManager } from './classes/ProjectManager.js'
-import { Project } from './classes/Project.js'
+import { ProjectManager } from '../classes/ProjectManager.js'
+import { Project } from '../classes/Project.js'
 import { renderProjects } from './renderProjects.js';
 
 export const projectHandler = (() => {

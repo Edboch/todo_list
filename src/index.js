@@ -1,4 +1,4 @@
-import { projectHandler } from './projectHandler.js'
+import { projectHandler } from './modules/projectHandler.js'
 
 document.addEventListener('DOMContentLoaded', ()=>{
     projectHandler.init();
