@@ -1,11 +1,12 @@
 import { ProjectManager } from '../classes/ProjectManager.js'
 import { Project } from '../classes/Project.js'
 import { renderProjects } from './renderProjects.js';
+import { todoHandler } from './todoHandler.js';
 
 export const projectHandler = (() => {
     
     const projectManager = new ProjectManager();
-    let selectedProject = null;
+    let selectedCard = null;
     
     function init() {
         // Default project
@@ -25,12 +26,13 @@ export const projectHandler = (() => {
 
         submitProject.addEventListener('click', ()=> {
             addProject(nameInput.value);
-            nameInput.value = '';
+            clearModal();
             projectModal.close();
             renderDisplay();
         });
 
         cancelModal.addEventListener('click', ()=>{
+            clearModal();
             projectModal.close();
         });
 
@@ -41,14 +43,22 @@ export const projectHandler = (() => {
                 deleteProject(deleteIndex);
                 renderDisplay();
             } else if (target.classList.contains('project-card')) {
-                if (selectedProject) {
-                    selectedProject.classList.remove('selected')
+                if (selectedCard) {
+                    selectedCard.classList.remove('selected')
                 }
-                
                 target.classList.add('selected');
-                selectedProject = target
+                selectedCard = target
+                const index = selectedCard.getAttribute('data-index')
+                const selectedProject = projectManager.getProject(index);
+                console.log(selectedProject)
+                todoHandler.init(selectedProject);
             }
         })
+    }
+
+    function clearModal() {
+        const projectModal = document.querySelector('#project-modal > form');
+        projectModal.reset();
     }
 
     function addProject(name) {
@@ -64,5 +74,5 @@ export const projectHandler = (() => {
         renderProjects.displayProjects(projectManager);
     }
 
-    return { init, addProject, projectManager }
+    return { init }
 })();
