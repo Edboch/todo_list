@@ -6,64 +6,52 @@ export const todoHandler = (()=> {
     let project;
 
     function init(currentProject){
-        // temporary generated todos
-        // remove it and add actual functionality
         project = currentProject;
-        startTodoSection();
-        renderTodoList();
+        renderTodos.init();
+        render();
         
-        const todoDisplay = document.querySelector('.todo-display');
-        const addTodoBtn = document.querySelector('.add-todo');
-        const todoModal = document.querySelector('#todo-modal');
-        const submitTodo = todoModal.querySelector('.submit');
-        const cancelModal = todoModal.querySelector('.cancel');
+        const display = document.querySelector('.todo-display');
+        const addBtn = document.querySelector('.add-todo');
+        const modal = document.querySelector('#todo-modal');
+        const submit = modal.querySelector('.submit');
+        const cancel = modal.querySelector('.cancel');
 
-        addTodoBtn.addEventListener('click',()=>{
-            todoModal.showModal();
+        addBtn.addEventListener('click',()=>{
+            modal.showModal();
         })
 
-        submitTodo.addEventListener('click',()=>{
-            submitModal();
+        submit.addEventListener('click',()=>{
+            addTodo();
             clearModal();
-            renderTodoList();
-            todoModal.close();
-            
+            render();
+            modal.close();
         })
 
-        cancelModal.addEventListener('click',()=>{
-            todoModal.close();
+        cancel.addEventListener('click',()=>{
+            modal.close();
             clearModal();
         })
     }
 
-    function submitModal() {
-        const todoModal = document.querySelector('#todo-modal');
-        const title = todoModal.querySelector('#title')
-        const description = todoModal.querySelector('#desc')
-        const dueDate = todoModal.querySelector('#due-date')
-        const priority = todoModal.querySelector('#priority')
-        const completed = todoModal.querySelector('#completed')
-        newTodo(title.value,description.value,
-                dueDate.value,priority.value,completed.value);
-
-    }
-
-    function newTodo(title,desc,date,priority,completed){
-        const todo = new Todo(title,desc,date,priority,completed);
+    function addTodo() {
+        const modal = document.querySelector('#todo-modal');
+        const title = modal.querySelector('#title')
+        const desc = modal.querySelector('#desc')
+        const date = modal.querySelector('#due-date')
+        const priority = modal.querySelector('#priority')
+        const completed = modal.querySelector('#completed')
+        const todo = new Todo(title.value, desc.value,
+                date.value, priority.value, completed.checked);
         project.addTodo(todo);
-        console.log(project);
     }
 
     function clearModal() {
-        const todoForm = document.querySelector('#todo-modal > form');
-        todoForm.reset();
+        const form = document.querySelector('#todo-modal > form');
+        form.reset();
     }
 
-    function startTodoSection() {
-        renderTodos.buildTodoSection();
-    }
-    function renderTodoList() {
-        renderTodos.displayTodoList(project.todoList);
+    function render() {
+        renderTodos.render(project.todoList);
     }
 
     return { init }

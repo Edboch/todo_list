@@ -1,36 +1,36 @@
 export const renderProjects = (() => {
     
-    const projectDisplay = document.querySelector('.project-display');
+    const display = document.querySelector('.project-display');
 
-    function displayProjects(projects) {
-        clearProjects();
+    function render(projects) {
+        clear();
         projects.allProjects.forEach((project,index)=>{
-            const card = createProjectCard(project,index);
-            projectDisplay.append(card);
+            const card = createCard(project,index);
+            display.append(card);
         })
     }
 
-    function createProjectCard(project,index) {
+    function createCard(project,index) {
         const card = document.createElement('div');
-        const projectTitle = document.createElement('h5');
-        const deleteProject = document.createElement('button');
+        const title = document.createElement('h5');
+        const btn = document.createElement('button');
 
         card.setAttribute('data-index',index);
         card.classList.add('project-card');
-        projectTitle.classList.add('project-title');
-        deleteProject.classList.add('delete-project');
-        deleteProject.setAttribute('id',index);
+        title.classList.add('project-title');
+        btn.classList.add('delete-project');
+        btn.setAttribute('id',index);
 
-        projectTitle.textContent = project.name;
-        deleteProject.textContent = 'Delete';
+        title.textContent = project.name;
+        btn.textContent = 'Delete';
 
-        card.append(projectTitle,deleteProject);
+        card.append(title,btn);
         return card;
     }
 
-    function clearProjects() {
-        projectDisplay.innerHTML = '';
+    function clear() {
+        display.innerHTML = '';
     }
     
-    return { displayProjects }
+    return { render }
 })();

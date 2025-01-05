@@ -5,73 +5,72 @@ import { todoHandler } from './todoHandler.js';
 
 export const projectHandler = (() => {
     
-    const projectManager = new ProjectManager();
-    let selectedCard = null;
+    const manager = new ProjectManager();
+    let selected = null;
     
     function init() {
         // Default project
-        addProject('Project 1');
-        renderDisplay();
+        add('Project 1');
+        render();
 
-        const projectDisplay = document.querySelector('.project-display');
-        const addProjectBtn = document.querySelector('.add-project');
-        const projectModal = document.querySelector('#project-modal');
-        const nameInput = projectModal.querySelector('#project-name');
-        const submitProject = projectModal.querySelector('.submit');
-        const cancelModal = projectModal.querySelector('.cancel');
+        const display = document.querySelector('.project-display');
+        const addBtn = document.querySelector('.add-project');
+        const modal = document.querySelector('#project-modal');
+        const input = modal.querySelector('#project-name');
+        const submit = modal.querySelector('.submit');
+        const cancel = modal.querySelector('.cancel');
 
-        addProjectBtn.addEventListener('click', ()=>{
-            projectModal.showModal();
+        addBtn.addEventListener('click', ()=>{
+            modal.showModal();
         });
 
-        submitProject.addEventListener('click', ()=> {
-            addProject(nameInput.value);
+        submit.addEventListener('click', ()=> {
+            add(input.value);
             clearModal();
-            projectModal.close();
-            renderDisplay();
+            modal.close();
+            render();
         });
 
-        cancelModal.addEventListener('click', ()=>{
+        cancel.addEventListener('click', ()=>{
             clearModal();
-            projectModal.close();
+            modal.close();
         });
 
-        projectDisplay.addEventListener('click',(event) => {
+        display.addEventListener('click',(event) => {
             const target = event.target;
             if (target.classList.contains('delete-project')) {
-                const deleteIndex = target.getAttribute('id');
-                deleteProject(deleteIndex);
-                renderDisplay();
+                const index = target.getAttribute('id');
+                remove(index);
+                render();
             } else if (target.classList.contains('project-card')) {
-                if (selectedCard) {
-                    selectedCard.classList.remove('selected')
+                if (selected) {
+                    selected.classList.remove('selected')
                 }
                 target.classList.add('selected');
-                selectedCard = target
-                const index = selectedCard.getAttribute('data-index')
-                const selectedProject = projectManager.getProject(index);
-                console.log(selectedProject)
-                todoHandler.init(selectedProject);
+                selected = target
+                const index = selected.getAttribute('data-index')
+                const project = manager.getProject(index);
+                todoHandler.init(project);
             }
         })
     }
 
     function clearModal() {
-        const projectModal = document.querySelector('#project-modal > form');
-        projectModal.reset();
+        const form = document.querySelector('#project-modal > form');
+        form.reset();
     }
 
-    function addProject(name) {
+    function add(name) {
         const project = new Project(name);
-        projectManager.addProject(project);
+        manager.addProject(project);
     }
 
-    function deleteProject(index) {
-        projectManager.removeProject(index);
+    function remove(index) {
+        manager.removeProject(index);
     }
 
-    function renderDisplay() {
-        renderProjects.displayProjects(projectManager);
+    function render() {
+        renderProjects.render(manager);
     }
 
     return { init }

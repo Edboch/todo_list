@@ -1,81 +1,77 @@
 export const renderTodos = (()=>{
 
-    const mainDisplay = document.querySelector('.main-display');
+    const display = document.querySelector('.main-display');
     
-
-    function createTodoCard(todo,index) {
+    function createCard(todo,index) {
         const card = document.createElement('div');
-        const taskName = document.createElement('p');
-        const description = document.createElement('p');
-        const dueDate = document.createElement('p');
+        const title = document.createElement('p');
+        const desc = document.createElement('p');
+        const date = document.createElement('p');
         const priority = document.createElement('p');
         const completed = document.createElement('p');
 
         card.classList.add('todo-card');
         card.setAttribute('data-index',index);
-        taskName.classList.add('name');
-        description.classList.add('description');
-        dueDate.classList.add('due-date');
+        title.classList.add('name');
+        desc.classList.add('description');
+        date.classList.add('due-date');
         priority.classList.add('priority');
         completed.classList.add('completed');
 
-        taskName.textContent = todo.title;
-        description.textContent = todo.description;
-        dueDate.textContent = todo.dueDate;
+        title.textContent = todo.title;
+        desc.textContent = todo.description;
+        date.textContent = todo.dueDate;
         priority.textContent = todo.priority;
         completed.textContent = todo.completed;
-
-        //add edit and delete buttons
         
-        card.append(taskName,description,dueDate,priority,completed)
+        card.append(title,desc,date,priority,completed)
         return card;
     }
 
-    function buildTodoSection() {
-        const todoDisplay = document.createElement('div');
-        todoDisplay.classList.add('todo-display');
-        clearTodoSection();
-        createTitle();
-        mainDisplay.append(todoDisplay);
-        console.log(mainDisplay)
-        createAddTodo();
+    function init() {
+        const container = document.createElement('div');
+        container.classList.add('todo-display');
+        clear();
+        addTitle();
+        display.append(container);
+        addButton();
     }
     
-    function displayTodoList(todoList){
-        clearTodoList();
-        createTodoList(todoList);
+    function render(todoList){
+        clearList();
+        displayList(todoList);
     }
 
-    function createTodoList(todoList) {
-        const todoDisplay = document.querySelector('.todo-display');
+    function displayList(todoList) {
+        const container = document.querySelector('.todo-display');
         todoList.forEach((todo,index)=> {
-            const card = createTodoCard(todo,index);
-            todoDisplay.append(card);
+            const card = createCard(todo,index);
+            container.append(card);
         })
     }
 
-    function createAddTodo() {
+    function addButton() {
         const btn = document.createElement('button');
         btn.setAttribute('type','button');
         btn.classList.add('add-todo');
         btn.textContent = 'Add Todo';
-        mainDisplay.append(btn);
+        display.append(btn);
     }
 
-    function createTitle() {
+    function addTitle() {
         const title = document.createElement('h3');
         title.textContent = 'Todos';
-        mainDisplay.append(title);
+        display.append(title);
     }
 
-    function clearTodoSection() {
-        mainDisplay.innerHTML = '';
+    function clear() {
+        display.innerHTML = '';
     }
     
-    function clearTodoList(){
-        const todoDisplay = document.querySelector('.todo-display');
-        todoDisplay.innerHTML = '';
+    function clearList(){
+        const container = document.querySelector('.todo-display');
+        container.innerHTML = '';
     }
 
-    return { buildTodoSection, displayTodoList }
+    return { init, render }
 })();
