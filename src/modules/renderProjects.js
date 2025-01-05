@@ -1,7 +1,8 @@
 export const renderProjects = (() => {
-    
+    // Main container for project display
     const display = document.querySelector('.project-display');
 
+    // Update the project list display
     function render(projects) {
         clear();
         projects.allProjects.forEach((project,index)=>{
@@ -21,6 +22,7 @@ export const renderProjects = (() => {
         btn.classList.add('delete-project');
         btn.setAttribute('id',index);
 
+        // Populate card with project data
         title.textContent = project.name;
         btn.textContent = 'Delete';
 

@@ -1,7 +1,8 @@
 export const renderTodos = (()=>{
-
+    // Main container for todo display
     const display = document.querySelector('.main-display');
     
+    // Create a card element for a todo item
     function createCard(todo,index) {
         const card = document.createElement('div');
         const title = document.createElement('p');
@@ -18,6 +19,7 @@ export const renderTodos = (()=>{
         priority.classList.add('priority');
         completed.classList.add('completed');
 
+        // Populate card with todo data
         title.textContent = todo.title;
         desc.textContent = todo.description;
         date.textContent = todo.dueDate;
@@ -28,6 +30,7 @@ export const renderTodos = (()=>{
         return card;
     }
 
+    // Initialize the todo section UI
     function init() {
         const container = document.createElement('div');
         container.classList.add('todo-display');
@@ -37,11 +40,13 @@ export const renderTodos = (()=>{
         addButton();
     }
     
+    // Update the todo list display
     function render(todoList){
         clearList();
         displayList(todoList);
     }
 
+    // Create and display cards for each todo
     function displayList(todoList) {
         const container = document.querySelector('.todo-display');
         todoList.forEach((todo,index)=> {
@@ -50,6 +55,7 @@ export const renderTodos = (()=>{
         })
     }
 
+    // Add the "Add Todo" button to the display
     function addButton() {
         const btn = document.createElement('button');
         btn.setAttribute('type','button');
@@ -58,16 +64,19 @@ export const renderTodos = (()=>{
         display.append(btn);
     }
 
+    // Add the section title
     function addTitle() {
-        const title = document.createElement('h3');
+        const title = document.createElement('h4');
         title.textContent = 'Todos';
         display.append(title);
     }
 
+    // Clear the entire todo section
     function clear() {
         display.innerHTML = '';
     }
     
+    // Clear only the todo list, preserving title and button
     function clearList(){
         const container = document.querySelector('.todo-display');
         container.innerHTML = '';
