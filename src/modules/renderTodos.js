@@ -2,6 +2,49 @@ export const renderTodos = (()=>{
     // Main container for todo display
     const display = document.querySelector('.main-display');
     
+    // Initialize the todo section UI
+    function init() {
+        const container = document.createElement('div');
+        container.classList.add('todo-display');
+        clear();
+        addTitle();
+        display.append(container);
+        addButton();
+    }
+    
+    // Update the todo list display
+    function render(todoList){
+        clearList();
+        displayList(todoList);
+    }
+
+    // Create and display cards for each todo
+    function displayList(todoList) {
+        const container = document.querySelector('.todo-display');
+
+        const header = document.createElement('div');
+        const title = document.createElement('h4');
+        const desc = document.createElement('h4');
+        const date = document.createElement('h4');
+        const priority = document.createElement('h4');
+        const completed = document.createElement('h4');
+
+        header.classList.add('todo-header');
+        title.textContent = 'Title';
+        desc.textContent = 'Description';
+        date.textContent = 'Due Date';
+        priority.textContent = 'Priority';
+        completed.textContent = 'Completed';
+
+        header.append(title,desc,date,priority,completed);
+        container.append(header);
+
+        todoList.forEach((todo,index)=> {
+            const card = createCard(todo,index);
+            container.append(card);
+        })
+    }
+
     // Create a card element for a todo item
     function createCard(todo,index) {
         const card = document.createElement('div');
@@ -28,31 +71,6 @@ export const renderTodos = (()=>{
         
         card.append(title,desc,date,priority,completed)
         return card;
-    }
-
-    // Initialize the todo section UI
-    function init() {
-        const container = document.createElement('div');
-        container.classList.add('todo-display');
-        clear();
-        addTitle();
-        display.append(container);
-        addButton();
-    }
-    
-    // Update the todo list display
-    function render(todoList){
-        clearList();
-        displayList(todoList);
-    }
-
-    // Create and display cards for each todo
-    function displayList(todoList) {
-        const container = document.querySelector('.todo-display');
-        todoList.forEach((todo,index)=> {
-            const card = createCard(todo,index);
-            container.append(card);
-        })
     }
 
     // Add the "Add Todo" button to the display
