@@ -53,6 +53,7 @@ export const renderTodos = (()=>{
         const date = document.createElement('p');
         const priority = document.createElement('p');
         const completed = document.createElement('p');
+        const delBtn = document.createElement('button');
 
         card.classList.add('todo-card');
         card.setAttribute('data-index',index);
@@ -61,6 +62,7 @@ export const renderTodos = (()=>{
         date.classList.add('due-date');
         priority.classList.add('priority');
         completed.classList.add('completed');
+        delBtn.classList.add('delete-todo');
 
         // Populate card with todo data
         title.textContent = todo.title;
@@ -68,8 +70,9 @@ export const renderTodos = (()=>{
         date.textContent = todo.dueDate;
         priority.textContent = todo.priority;
         completed.textContent = todo.completed;
+        delBtn.textContent = 'X';
         
-        card.append(title,desc,date,priority,completed)
+        card.append(title,desc,date,priority,completed,delBtn);
         return card;
     }
 

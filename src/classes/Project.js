@@ -8,6 +8,10 @@ export class Project {
         this.todos.push(todo);
     }
 
+    removeTodo(index) {
+        this.todos.splice(index,1);
+    }
+
     get todoList() {
         return this.todos;
     }

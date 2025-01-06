@@ -25,6 +25,15 @@ export const todoHandler = (()=> {
         addBtn.addEventListener('click',()=>{
             modal.showModal();
         })
+
+        display.addEventListener('click', (event)=> {
+            const target = event.target;
+            if (target.classList.contains('delete-todo')) {
+                const index = target.getAttribute('data-index');
+                remove(index);
+                render();
+            }
+        })        
     }
 
     function initTodoModal() {
@@ -57,6 +66,10 @@ export const todoHandler = (()=> {
         const todo = new Todo(title.value, desc.value,
                 date.value, priority.value, completed.checked);
         project.addTodo(todo);
+    }
+
+    function remove(index) {
+        project.removeTodo(index);
     }
 
     function clearModal() {
