@@ -4,10 +4,15 @@ import { renderTodos } from "./renderTodos.js";
 
 export const todoHandler = (()=> {
     // Track the currently active project
-    let project;
+    let project = null;
 
     // Initialize todo handling for a project and set up event listeners
     function init(currentProject){
+        if (!currentProject) {
+            renderTodos.clear();
+            project = null;
+            return
+        }
         project = currentProject;
         renderTodos.init();
         render();

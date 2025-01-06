@@ -100,5 +100,5 @@ export const renderTodos = (()=>{
         container.innerHTML = '';
     }
 
-    return { init, render }
+    return { init, render, clear }
 })();

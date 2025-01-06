@@ -76,9 +76,11 @@ export const projectHandler = (() => {
     }
 
     function remove(index) {
+        if (selected.getAttribute('data-index') == index) {
+            todoHandler.init();
+        }
         manager.removeProject(index);
-        // CHECK FOR DELETE TO SEE IF DELETED IS CURRENT PROJECT
-        // IF SO THEN SHOULD REMOVE THE UI FOR THE TODO SECTION
+        
     }
 
     // Update the project display
