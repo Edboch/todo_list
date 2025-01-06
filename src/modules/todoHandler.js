@@ -1,4 +1,3 @@
-import { projectHandler } from "./projectHandler.js";
 import { Todo } from "../classes/Todo.js";
 import { renderTodos } from "./renderTodos.js";
 

@@ -1,12 +1,10 @@
-import { ProjectManager } from '../classes/ProjectManager.js'
 import { Project } from '../classes/Project.js'
 import { renderProjects } from './renderProjects.js';
 import { todoHandler } from './todoHandler.js';
 
 export const projectHandler = (() => {
     
-    // Initialize project manager and track currently selected project card
-    const manager = new ProjectManager();
+    const projects = [];
     let selected = null;
     
     // Initialize project handling and set up event listeners
@@ -58,7 +56,7 @@ export const projectHandler = (() => {
                 target.classList.add('selected');
                 selected = target
                 const index = selected.getAttribute('data-index')
-                const project = manager.getProject(index);
+                const project = projects[index];
                 todoHandler.init(project);
             }
         })
@@ -72,20 +70,20 @@ export const projectHandler = (() => {
     // Create a new project with given name
     function add(name) {
         const project = new Project(name);
-        manager.addProject(project);
+        projects.push(project);
     }
 
     function remove(index) {
         if (selected.getAttribute('data-index') == index) {
             todoHandler.init();
         }
-        manager.removeProject(index);
+        projects.splice(index,1);
         
     }
 
     // Update the project display
     function render() {
-        renderProjects.render(manager);
+        renderProjects.render(projects);
     }
 
     return { init }

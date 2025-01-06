@@ -5,7 +5,7 @@ export const renderProjects = (() => {
     // Update the project list display
     function render(projects) {
         clear();
-        projects.allProjects.forEach((project,index)=>{
+        projects.forEach((project,index)=>{
             const card = createCard(project,index);
             display.append(card);
         })
