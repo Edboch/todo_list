@@ -1,90 +1,165 @@
 import { Project } from '../classes/Project.js'
 import { renderProjects } from './renderProjects.js';
-import { todoHandler } from './todoHandler.js';
+import { renderTodos } from './renderTodos.js'
+import { Todo } from '../classes/Todo.js';
 
-export const projectHandler = (() => {
+// Rename to TaskManager as it manages both projects and todos
+export const TaskManager = (() => {
+    const projectList = [];
+    let activeProjectIndex = null;
     
-    const projects = [];
-    let selected = null;
-    
-    // Initialize project handling and set up event listeners
     function init() {
         // Create default project on startup
-        add('Project 1');
-        render();
-
-        // Get DOM elements for project interactions
-        const display = document.querySelector('.project-display');
-        const addBtn = document.querySelector('.add-project');
-        const modal = document.querySelector('#project-modal');
-        const input = modal.querySelector('#project-name');
-        const submit = modal.querySelector('.submit');
-        const cancel = modal.querySelector('.cancel');
-
-        addBtn.addEventListener('click', ()=>{
-            modal.showModal();
-        });
-
-        // Handle project creation when submit is clicked
-        submit.addEventListener('click', ()=> {
-            add(input.value);
-            clearModal();
-            modal.close();
-            render();
-        });
-
-        // Clear and close modal when cancel is clicked
-        cancel.addEventListener('click', ()=>{
-            clearModal();
-            modal.close();
-        });
-
-        // Handle project card interactions (delete and select)
-        display.addEventListener('click',(event) => {
-            const target = event.target;
-            // Delete project if delete button is clicked
-            if (target.classList.contains('delete-project')) {
-                const index = target.getAttribute('id');
-                remove(index);
-                render();
-            } 
-            // Select project and show its todos if card is clicked
-            else if (target.classList.contains('project-card')) {
-                if (selected) {
-                    selected.classList.remove('selected')
-                }
-                target.classList.add('selected');
-                selected = target
-                const index = selected.getAttribute('data-index')
-                const project = projects[index];
-                todoHandler.init(project);
-            }
-        })
+        createProject('Project 1');
+        updateProjectDisplay();
+        setupEventListeners();
     }
 
-    function clearModal() {
-        const form = document.querySelector('#project-modal > form');
+    function setupEventListeners() {
+        setupProjectListeners();
+        setupProjectModalListeners();
+        setupTodoModalListeners();
+    }
+
+    function setupProjectListeners() {
+        const projectDisplay = document.querySelector('.project-display');
+        
+        projectDisplay.addEventListener('click', (event) => {
+            const target = event.target;
+            
+            if (target.classList.contains('delete-project')) {
+                const index = target.getAttribute('id');
+                deleteProject(index);
+                updateProjectDisplay();
+            } 
+            else if (target.classList.contains('project-card')) {
+                handleProjectSelection(target, projectDisplay);
+            }
+        });
+    }
+
+    function handleProjectSelection(selectedCard, container) {
+        if (activeProjectIndex !== null) {
+            const previousCard = container.querySelector(`[data-index="${activeProjectIndex}"]`);
+            previousCard.classList.remove('selected');
+        }
+        selectedCard.classList.add('selected');
+        activeProjectIndex = selectedCard.getAttribute('data-index');
+        initializeProjectView();
+    }
+
+    function setupProjectModalListeners() {
+        const modal = document.querySelector('#project-modal');
+        const addButton = document.querySelector('.add-project');
+        const input = modal.querySelector('#project-name');
+        const submitButton = modal.querySelector('.submit');
+        const cancelButton = modal.querySelector('.cancel');
+
+        addButton.addEventListener('click', () => modal.showModal());
+
+        submitButton.addEventListener('click', () => {
+            createProject(input.value);
+            clearModalForm(modal);
+            modal.close();
+            updateProjectDisplay();
+        });
+
+        cancelButton.addEventListener('click', () => {
+            clearModalForm(modal);
+            modal.close();
+        });
+    }
+
+    function setupTodoModalListeners() {
+        const modal = document.querySelector('#todo-modal');
+        const submitButton = modal.querySelector('.submit');
+        const cancelButton = modal.querySelector('.cancel');
+
+        submitButton.addEventListener('click', () => {
+            createTodo();
+            clearModalForm(modal);
+            updateTodoDisplay();
+            modal.close();
+        });
+
+        cancelButton.addEventListener('click', () => {
+            modal.close();
+            clearModalForm(modal);
+        });
+    }
+
+    function initializeProjectView() {
+        if (activeProjectIndex === null) {
+            renderTodos.clear();
+            return;
+        }
+
+        renderTodos.init();
+        updateTodoDisplay();
+        setupTodoListeners();
+    }
+
+    function setupTodoListeners() {
+        const todoDisplay = document.querySelector('.todo-display');
+        const addTodoButton = document.querySelector('.add-todo');
+        const todoModal = document.querySelector('#todo-modal');
+
+        addTodoButton.addEventListener('click', () => todoModal.showModal());
+
+        todoDisplay.addEventListener('click', (event) => {
+            const target = event.target;
+            if (target.classList.contains('delete-todo')) {
+                const index = target.getAttribute('data-index');
+                deleteTodo(index);
+                updateTodoDisplay();
+            }
+        });
+    }
+
+    function clearModalForm(modal) {
+        const form = modal.querySelector('form');
         form.reset();
     }
 
-    // Create a new project with given name
-    function add(name) {
+    // Project Operations
+    function createProject(name) {
         const project = new Project(name);
-        projects.push(project);
+        projectList.push(project);
     }
 
-    function remove(index) {
-        if (selected.getAttribute('data-index') == index) {
-            todoHandler.init();
+    function deleteProject(index) {
+        if (activeProjectIndex === index) {
+            activeProjectIndex = null;
+            initializeProjectView();
         }
-        projects.splice(index,1);
-        
+        projectList.splice(index, 1);
     }
 
-    // Update the project display
-    function render() {
-        renderProjects.render(projects);
+    // Todo Operations
+    function createTodo() {
+        const modal = document.querySelector('#todo-modal');
+        const todo = new Todo(
+            modal.querySelector('#title').value,
+            modal.querySelector('#desc').value,
+            modal.querySelector('#due-date').value,
+            modal.querySelector('#priority').value,
+            modal.querySelector('#completed').checked
+        );
+        projectList[activeProjectIndex].addTodo(todo);
+    }
+    
+    function deleteTodo(index) {
+        projectList[activeProjectIndex].removeTodo(index);
     }
 
-    return { init }
+    // Display Updates
+    function updateProjectDisplay() {
+        renderProjects.render(projectList);
+    }
+
+    function updateTodoDisplay() {
+        renderTodos.render(projectList[activeProjectIndex].todoList);
+    }
+
+    return { init };
 })();
