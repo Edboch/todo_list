@@ -1,16 +1,14 @@
-import { Project } from '../classes/Project.js'
+import { Project } from '../classes/Project.js';
 import { renderProjects } from './renderProjects.js';
-import { renderTodos } from './renderTodos.js'
+import { renderTodos } from './renderTodos.js';
 import { Todo } from '../classes/Todo.js';
+import { saveToStorage, loadProjects } from './storage.js';
 
-// Rename to TaskManager as it manages both projects and todos
-export const TaskManager = (() => {
-    const projectList = [];
+export const taskManager = (() => {
+    let projectList = loadProjects();
     let activeProjectIndex = null;
     
     function init() {
-        // Create default project on startup
-        createProject('Project 1');
         updateProjectDisplay();
         setupEventListeners();
     }
@@ -44,7 +42,7 @@ export const TaskManager = (() => {
             previousCard.classList.remove('selected');
         }
         selectedCard.classList.add('selected');
-        activeProjectIndex = selectedCard.getAttribute('data-index');
+        activeProjectIndex = parseInt(selectedCard.getAttribute('data-index'));
         initializeProjectView();
     }
 
@@ -125,6 +123,7 @@ export const TaskManager = (() => {
     function createProject(name) {
         const project = new Project(name);
         projectList.push(project);
+        saveToStorage('projectList', projectList);
     }
 
     function deleteProject(index) {
@@ -133,6 +132,7 @@ export const TaskManager = (() => {
             initializeProjectView();
         }
         projectList.splice(index, 1);
+        saveToStorage('projectList', projectList);
     }
 
     // Todo Operations
@@ -146,10 +146,12 @@ export const TaskManager = (() => {
             modal.querySelector('#completed').checked
         );
         projectList[activeProjectIndex].addTodo(todo);
+        saveToStorage('projectList', projectList);
     }
     
     function deleteTodo(index) {
         projectList[activeProjectIndex].removeTodo(index);
+        saveToStorage('projectList', projectList);
     }
 
     // Display Updates

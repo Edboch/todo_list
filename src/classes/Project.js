@@ -9,7 +9,7 @@ export class Project {
     }
 
     removeTodo(index) {
-        this.todos.splice(index,1);
+        this.todos.splice(index, 1);
     }
 
     get todoList() {

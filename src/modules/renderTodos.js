@@ -1,4 +1,4 @@
-export const renderTodos = (()=>{
+export const renderTodos = (() => {
     // Main container for todo display
     const display = document.querySelector('.main-display');
     
@@ -13,7 +13,7 @@ export const renderTodos = (()=>{
     }
     
     // Update the todo list display
-    function render(todoList){
+    function render(todoList) {
         clearList();
         displayList(todoList);
     }
@@ -36,17 +36,17 @@ export const renderTodos = (()=>{
         priority.textContent = 'Priority';
         completed.textContent = 'Completed';
 
-        header.append(title,desc,date,priority,completed);
+        header.append(title, desc, date, priority, completed);
         container.append(header);
 
-        todoList.forEach((todo,index)=> {
-            const card = createCard(todo,index);
+        todoList.forEach((todo, index) => {
+            const card = createCard(todo, index);
             container.append(card);
-        })
+        });
     }
 
     // Create a card element for a todo item
-    function createCard(todo,index) {
+    function createCard(todo, index) {
         const card = document.createElement('div');
         const title = document.createElement('p');
         const desc = document.createElement('p');
@@ -56,7 +56,7 @@ export const renderTodos = (()=>{
         const delBtn = document.createElement('button');
 
         card.classList.add('todo-card');
-        card.setAttribute('data-index',index);
+        card.setAttribute('data-index', index);
         title.classList.add('name');
         desc.classList.add('description');
         date.classList.add('due-date');
@@ -72,14 +72,14 @@ export const renderTodos = (()=>{
         completed.textContent = todo.completed;
         delBtn.textContent = 'X';
         
-        card.append(title,desc,date,priority,completed,delBtn);
+        card.append(title, desc, date, priority, completed, delBtn);
         return card;
     }
 
     // Add the "Add Todo" button to the display
     function addButton() {
         const btn = document.createElement('button');
-        btn.setAttribute('type','button');
+        btn.setAttribute('type', 'button');
         btn.classList.add('add-todo');
         btn.textContent = 'Add Todo';
         display.append(btn);
@@ -98,10 +98,12 @@ export const renderTodos = (()=>{
     }
     
     // Clear only the todo list, preserving title and button
-    function clearList(){
+    function clearList() {
         const container = document.querySelector('.todo-display');
-        container.innerHTML = '';
+        if (container) {
+            container.innerHTML = '';
+        }
     }
 
-    return { init, render, clear }
+    return { init, render, clear };
 })();

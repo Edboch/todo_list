@@ -1,6 +1,6 @@
-import { TaskManager } from './modules/projectHandler.js';
+import { taskManager } from './modules/taskManager.js';
 import "./style.css";
 
-document.addEventListener('DOMContentLoaded', ()=>{
-    TaskManager.init();
-})
+document.addEventListener('DOMContentLoaded', () => {
+    taskManager.init();
+});
