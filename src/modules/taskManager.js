@@ -78,14 +78,21 @@ export const taskManager = (() => {
         const form = modal.querySelector('#todo-form');
         const cancelButton = modal.querySelector('.cancel');
 
-        form.addEventListener('submit', () => {
-            createTodo();
+        form.addEventListener('submit', (event) => {
+            const editing = modal.getAttribute('data-edit-index');
+            if (editing) {
+                updateTodo();
+                modal.removeAttribute('data-edit-index');
+            }else {
+                createTodo();
+            }
             clearModalForm(modal);
             updateTodoDisplay();
             modal.close();
         });
 
         cancelButton.addEventListener('click', () => {
+            modal.removeAttribute('data-edit-index');
             modal.close();
             clearModalForm(modal);
         });
@@ -107,7 +114,10 @@ export const taskManager = (() => {
         const addTodoButton = document.querySelector('.add-todo');
         const todoModal = document.querySelector('#todo-modal');
 
-        addTodoButton.addEventListener('click', () => todoModal.showModal());
+        addTodoButton.addEventListener('click', () => {
+            todoModal.showModal();
+            changeTodoModalTitle();
+        });
 
         todoDisplay.addEventListener('click', (event) => {
             const target = event.target;
@@ -115,8 +125,42 @@ export const taskManager = (() => {
                 const index = target.getAttribute('data-index');
                 deleteTodo(index);
                 updateTodoDisplay();
+            }else if (target.classList.contains('edit-todo')) {
+                const index = target.getAttribute('data-index');
+                openEditTodoModal(index);
+                changeTodoModalTitle();
             }
         });
+    }
+
+    function openEditTodoModal(index) {
+        const todo = projectList[activeProjectIndex].todoList[index];
+        const modal = document.querySelector('#todo-modal');
+        const title = modal.querySelector('#title');
+        const desc = modal.querySelector('#desc');
+        const date = modal.querySelector('#due-date');
+        const priority = modal.querySelector('#priority');
+        const completed = modal.querySelector('#completed');
+
+        title.value = todo.title;
+        desc.value = todo.description;
+        date.value = todo.dueDate;
+        priority.value = todo.priority;
+        completed.checked = todo.completed;
+        modal.showModal();
+        modal.setAttribute('data-edit-index',index);
+        
+    }
+
+    function changeTodoModalTitle() {
+        const modal = document.querySelector('#todo-modal');
+        const editing = modal.getAttribute('data-edit-index');
+        const heading = modal.querySelector('h3');
+        if (editing) {
+            heading.textContent = 'Edit Todo';
+        } else {
+            heading.textContent = 'New Todo';
+        }
     }
 
     function clearModalForm(modal) {
@@ -149,6 +193,18 @@ export const taskManager = (() => {
             modal.querySelector('#completed').checked
         );
         projectList[activeProjectIndex].addTodo(todo);
+        saveToStorage('projectList', projectList);
+    }
+
+    function updateTodo() {
+        const modal = document.querySelector('#todo-modal');
+        const index = modal.getAttribute('data-edit-index');
+        const todo = projectList[activeProjectIndex].todoList[index];
+        todo.title = modal.querySelector('#title').value;
+        todo.description = modal.querySelector('#desc').value;
+        todo.dueDate = modal.querySelector('#due-date').value;
+        todo.priority = modal.querySelector('#priority').value;
+        todo.completed = modal.querySelector('#completed').checked;
         saveToStorage('projectList', projectList);
     }
     
