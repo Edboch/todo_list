@@ -1,3 +1,6 @@
+import CloseIcon from '../icons/close.svg'
+import PencilIcon from '../icons/pencil.svg'
+
 export const renderTodos = (() => {
     // Main container for todo display
     const display = document.querySelector('.main-display');
@@ -68,6 +71,7 @@ export const renderTodos = (() => {
         delBtn.setAttribute('data-index',index);
         editBtn.classList.add('edit-todo');
         editBtn.setAttribute('data-index',index);
+        buttons.classList.add('todo-card-buttons');
 
         // Populate card with todo data
         title.textContent = todo.title || "-";
@@ -75,8 +79,9 @@ export const renderTodos = (() => {
         date.textContent = todo.dueDate || "-";
         priority.textContent = todo.priority || "-";
         completed.textContent = todo.completed? "Completed":"Not Done";
-        delBtn.textContent = 'X';
-        editBtn.textContent = 'edit';
+
+        delBtn.innerHTML = `<img src="${CloseIcon}"/>`;
+        editBtn.innerHTML = `<img src="${PencilIcon}"/>`;
 
         buttons.append(delBtn,editBtn);
         

@@ -1,3 +1,5 @@
+import CloseIcon from '../icons/close.svg'
+
 export const renderProjects = (() => {
     // Main container for project display
     const display = document.querySelector('.project-display');
@@ -31,7 +33,7 @@ export const renderProjects = (() => {
         const btn = document.createElement('button');
         btn.classList.add('delete-project');
         btn.setAttribute('data-index', index);
-        btn.textContent = 'Delete';
+        btn.innerHTML = `<img src="${CloseIcon}"/>`;
         return btn;
     }
 
