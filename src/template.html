@@ -8,7 +8,7 @@
 <body>
     <div class="container">
         <div class="sidebar">
-            <h4>Projects</h4>
+            <h2>Projects</h2>
             <div class="project-display">
 
             </div>
@@ -19,19 +19,19 @@
     </div>
 
     <dialog id="project-modal">
-        <form action="#" method="dialog">
+        <form action="#" method="dialog" id="project-form">
             <h3>New Project</h3>
             <div>
                 <label for="project-name">Name:</label>
                 <input type="text" id="project-name" name="project_name" required>
             </div>
-            <button type="button" class="submit">Submit</button>
+            <button type="submit" class="submit">Submit</button>
             <button type="button" class="cancel">Cancel</button>
         </form>
     </dialog>
 
     <dialog id="todo-modal">
-        <form action="#" method="dialog">
+        <form action="#" method="dialog" id="todo-form">
             <h3>New Todo</h3>
             <div>
                 <label for="title">Name:</label>
@@ -39,15 +39,15 @@
             </div>
             <div>
                 <label for="desc">Description:</label>
-                <textarea type="text" id="desc" name="desc" required></textarea>
+                <textarea type="text" id="desc" name="desc"></textarea>
             </div>
             <div>
                 <label for="due-date">Due Date:</label>
-                <input type="date" id="due-date" name="due_date" required>
+                <input type="date" id="due-date" name="due_date">
             </div>
             <div>
                 <label for="priority">Priority:</label>
-                <select name="priority" id="priority" required>
+                <select name="priority" id="priority">
                     <option value="" disabled selected>Select Priority</option>
                     <option value="low">Low</option>
                     <option value="medium">Medium</option>
@@ -58,7 +58,7 @@
                 <label for="completed">Completed:</label>
                 <input type="checkbox" id="completed" name="completed">
             </div>
-            <button type="button" class="submit">Submit</button>
+            <button type="submit" class="submit">Submit</button>
             <button type="button" class="cancel">Cancel</button>
         </form>
 

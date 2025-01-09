@@ -63,13 +63,14 @@ export const renderTodos = (() => {
         priority.classList.add('priority');
         completed.classList.add('completed');
         delBtn.classList.add('delete-todo');
+        delBtn.setAttribute('data-index',index);
 
         // Populate card with todo data
-        title.textContent = todo.title;
-        desc.textContent = todo.description;
-        date.textContent = todo.dueDate;
-        priority.textContent = todo.priority;
-        completed.textContent = todo.completed;
+        title.textContent = todo.title || "-";
+        desc.textContent = todo.description || "-";
+        date.textContent = todo.dueDate || "-";
+        priority.textContent = todo.priority || "-";
+        completed.textContent = todo.completed? "Completed":"Not Done";
         delBtn.textContent = 'X';
         
         card.append(title, desc, date, priority, completed, delBtn);
@@ -87,7 +88,7 @@ export const renderTodos = (() => {
 
     // Add the section title
     function addTitle() {
-        const title = document.createElement('h4');
+        const title = document.createElement('h2');
         title.textContent = 'Todos';
         display.append(title);
     }

@@ -26,7 +26,7 @@ export const taskManager = (() => {
             const target = event.target;
             
             if (target.classList.contains('delete-project')) {
-                const index = target.getAttribute('id');
+                const index = target.getAttribute('data-index');
                 deleteProject(index);
                 updateProjectDisplay();
             } 
@@ -53,14 +53,14 @@ export const taskManager = (() => {
 
     function setupProjectModalListeners() {
         const modal = document.querySelector('#project-modal');
+        const form = document.querySelector('#project-form');
         const addButton = document.querySelector('.add-project');
         const input = modal.querySelector('#project-name');
-        const submitButton = modal.querySelector('.submit');
         const cancelButton = modal.querySelector('.cancel');
 
         addButton.addEventListener('click', () => modal.showModal());
 
-        submitButton.addEventListener('click', () => {
+        form.addEventListener('submit', () => {
             createProject(input.value);
             clearModalForm(modal);
             modal.close();
@@ -75,10 +75,10 @@ export const taskManager = (() => {
 
     function setupTodoModalListeners() {
         const modal = document.querySelector('#todo-modal');
-        const submitButton = modal.querySelector('.submit');
+        const form = modal.querySelector('#todo-form');
         const cancelButton = modal.querySelector('.cancel');
 
-        submitButton.addEventListener('click', () => {
+        form.addEventListener('submit', () => {
             createTodo();
             clearModalForm(modal);
             updateTodoDisplay();

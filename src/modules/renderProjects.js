@@ -13,7 +13,7 @@ export const renderProjects = (() => {
 
     function createCard(project, index) {
         const card = document.createElement('div');
-        const title = document.createElement('h5');
+        const title = document.createElement('h4');
         
         card.setAttribute('data-index', index);
         card.classList.add('project-card');
@@ -30,7 +30,7 @@ export const renderProjects = (() => {
     function addDeleteBtn(index) {
         const btn = document.createElement('button');
         btn.classList.add('delete-project');
-        btn.setAttribute('id', index);
+        btn.setAttribute('data-index', index);
         btn.textContent = 'Delete';
         return btn;
     }
