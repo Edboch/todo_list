@@ -14,25 +14,34 @@ export const renderProjects = (() => {
     function createCard(project, index) {
         const card = document.createElement('div');
         const title = document.createElement('h5');
-        const btn = document.createElement('button');
-
+        
         card.setAttribute('data-index', index);
         card.classList.add('project-card');
         title.classList.add('project-title');
-        btn.classList.add('delete-project');
-        btn.setAttribute('id', index);
-
+        
         // Populate card with project data
         title.textContent = project.name;
-        btn.textContent = 'Delete';
+        
 
-        card.append(title, btn);
+        card.append(title);
         return card;
+    }
+
+    function addDeleteBtn(index) {
+        const btn = document.createElement('button');
+        btn.classList.add('delete-project');
+        btn.setAttribute('id', index);
+        btn.textContent = 'Delete';
+        return btn;
+    }
+
+    function removeElement(element) {
+        element.remove();
     }
 
     function clear() {
         display.innerHTML = '';
     }
     
-    return { render };
+    return { render, addDeleteBtn, removeElement };
 })();

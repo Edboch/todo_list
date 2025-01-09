@@ -39,10 +39,15 @@ export const taskManager = (() => {
     function handleProjectSelection(selectedCard, container) {
         if (activeProjectIndex !== null) {
             const previousCard = container.querySelector(`[data-index="${activeProjectIndex}"]`);
+            const oldDeleteBtn = container.querySelector('.delete-project');
             previousCard.classList.remove('selected');
+            if (oldDeleteBtn) renderProjects.removeElement(oldDeleteBtn);
+
         }
         selectedCard.classList.add('selected');
         activeProjectIndex = parseInt(selectedCard.getAttribute('data-index'));
+        const deleteBtn = renderProjects.addDeleteBtn(activeProjectIndex);
+        selectedCard.append(deleteBtn);
         initializeProjectView();
     }
 
@@ -127,10 +132,8 @@ export const taskManager = (() => {
     }
 
     function deleteProject(index) {
-        if (activeProjectIndex === index) {
-            activeProjectIndex = null;
-            initializeProjectView();
-        }
+        activeProjectIndex = null;
+        initializeProjectView();
         projectList.splice(index, 1);
         saveToStorage('projectList', projectList);
     }
