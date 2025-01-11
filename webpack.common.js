@@ -11,6 +11,9 @@ module.exports = {
     plugins: [
         new HtmlWebpackPlugin({
             template: "./src/template.html",
+            minify: {
+                removeRedundantAttributes: false,
+            },
         }),
     ],
     module: {
