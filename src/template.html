@@ -1,72 +1,67 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>To Do List</title>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <div class="sidebar">
-            <h2>Projects</h2>
-            <div class="project-display">
-
-            </div>
-            <button type="button" class="add-project">Add Project</button>
-        </div>
-        <div class="main-display">
-        </div>
+      <div class="sidebar">
+        <h2>Projects</h2>
+        <div class="project-display"></div>
+        <button type="button" class="add-project">Add Project</button>
+      </div>
+      <div class="main-display"></div>
     </div>
 
     <dialog id="project-modal">
-        <form action="#" method="dialog" id="project-form">
-            <h3 class="modal-title">New Project</h3>
-            <div class="form-input">
-                <label for="project-name">Name</label>
-                <input type="text" id="project-name" name="project_name" required>
-            </div>
-            <div class="modal-buttons">
-                <button type="submit" class="submit">Submit</button>
-                <button type="button" class="cancel">Cancel</button>
-            </div>
-        </form>
+      <form action="#" method="dialog" id="project-form">
+        <h3 class="modal-title">New Project</h3>
+        <div class="form-input">
+          <label for="project-name">Name</label>
+          <input type="text" id="project-name" name="project_name" required />
+        </div>
+        <div class="modal-buttons">
+          <button type="submit" class="submit">Submit</button>
+          <button type="button" class="cancel">Cancel</button>
+        </div>
+      </form>
     </dialog>
 
     <dialog id="todo-modal">
-        <form action="#" method="dialog" id="todo-form">
-            <h3 class="modal-title"></h3>
-            <div class="form-input">
-                <label for="title">Name</label>
-                <input type="text" id="title" name="title" required>
-            </div>
-            <div class="form-input">
-                <label for="desc">Description</label>
-                <textarea rows="5" type="text" id="desc" name="desc" ></textarea>
-            </div>
-            <div class="form-input">
-                <label for="due-date">Due Date</label>
-                <input type="date" id="due-date" name="due_date">
-            </div>
-            <div class="form-input">
-                <label for="priority">Priority</label>
-                <select name="priority" id="priority">
-                    <option value="" disabled selected>Select Priority</option>
-                    <option value="low">Low</option>
-                    <option value="medium">Medium</option>
-                    <option value="high">High</option>
-                </select>
-            </div>
-            <div class="form-checkbox">
-                <label for="completed">Completed</label>
-                <input type="checkbox" id="completed" name="completed">
-            </div>
-            <div class="modal-buttons">
-                <button type="submit" class="submit">Submit</button>
-                <button type="button" class="cancel">Cancel</button>
-            </div>
-        </form>
-
+      <form action="#" method="dialog" id="todo-form">
+        <h3 class="modal-title"></h3>
+        <div class="form-input">
+          <label for="title">Name</label>
+          <input type="text" id="title" name="title" required />
+        </div>
+        <div class="form-input">
+          <label for="desc">Description</label>
+          <textarea rows="5" type="text" id="desc" name="desc"></textarea>
+        </div>
+        <div class="form-input">
+          <label for="due-date">Due Date</label>
+          <input type="date" id="due-date" name="due_date" />
+        </div>
+        <div class="form-input">
+          <label for="priority">Priority</label>
+          <select name="priority" id="priority">
+            <option value="" disabled selected>Select Priority</option>
+            <option value="low">Low</option>
+            <option value="medium">Medium</option>
+            <option value="high">High</option>
+          </select>
+        </div>
+        <div class="form-checkbox">
+          <label for="completed">Completed</label>
+          <input type="checkbox" id="completed" name="completed" />
+        </div>
+        <div class="modal-buttons">
+          <button type="submit" class="submit">Submit</button>
+          <button type="button" class="cancel">Cancel</button>
+        </div>
+      </form>
     </dialog>
-    
-</body>
+  </body>
 </html>
