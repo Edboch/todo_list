@@ -1,22 +1,11 @@
 :root {
   /* Base Colors */
-  --color-light: #ffffff;
-  --color-dark: #1e293b;
-  --color-medium: #334155;
-  --color-highlight: #475569;
-  --color-muted: #94a3b8;
-
-  /* Text Colors */
-  --color-text-light: #f1f5f9;
-
-  /* Background Colors */
-  --color-bg-main: #f8fafc;
-
-  /* Borders and Shadows */
-  --color-border: #cbd5e1;
-
-  /* Button and Interaction States */
-  --color-btn-hover: #e2e8f0;
+  --color-white: #ffffff;
+  --color-light: #f2f4f3;
+  --text-colour: #202020;
+  --sidebar-hover: #e1e4e3;
+  --sidebar-bgfocus: #e6f4f1;
+  --sidebar-txtfocus: #317b50;
 }
 
 *:not(dialog) {
@@ -34,7 +23,7 @@
   display: grid;
   grid-template-columns: 200px 1fr;
   min-height: 100vh;
-  background-color: var(--color-light);
+  background-color: var(--color-white);
 }
 
 .sidebar {
@@ -42,9 +31,9 @@
   flex-direction: column;
   gap: 10px;
   align-items: center;
-  background-color: var(--color-dark);
+  background-color: var(--color-light);
   padding: 12px 0;
-  color: var(--color-muted);
+  color: var(--text-colour);
 }
 
 .project-display {
@@ -63,8 +52,7 @@
 }
 
 .project-card:hover {
-  background-color: var(--color-medium);
-  color: var(--color-text-light);
+  background-color: var(--sidebar-hover);
 }
 
 .project-card h4 {
@@ -78,8 +66,8 @@
 
 .project-card.selected {
   justify-content: space-between;
-  background-color: var(--color-highlight);
-  color: var(--color-text-light);
+  background-color: var(--sidebar-bgfocus);
+  color: var(--sidebar-txtfocus);
 }
 
 .main-display {
@@ -108,8 +96,8 @@
 }
 
 .todo-header {
-  background-color: var(--color-dark);
-  color: var(--color-text-light);
+  background-color: var(--color-light);
+  color: var(--text-colour);
 }
 
 .todo-card {
@@ -121,7 +109,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: var(--color-medium);
+  color: var(--text-colour);
 }
 
 button {
@@ -131,17 +119,19 @@ button {
 button > img {
   pointer-events: none;
   user-select: none;
+  color: var(--sidebar-txtfocus);
 }
 
 .delete-project {
   width: 20px;
   height: 20px;
   padding: 2px;
-  filter: invert(1);
+  color: var(--sidebar-txtfocus); 
+  transition: transform 0.3s ease-out;
 }
 
 .delete-project:hover {
-  background-color: var(--color-muted);
+  transform: scale(1.3);
 }
 
 .delete-todo,
@@ -167,13 +157,12 @@ button > img {
 }
 
 .add-project {
-  color: var(--color-text-light);
-  border: 1px solid var(--color-text-light);
+  color: var(--text-colour);
+  border: 1px solid var(--text-colour);
 }
 
 .add-project:hover {
-  color: var(--color-dark);
-  background-color: var(--color-text-light);
+  background-color: var(--sidebar-hover);
 }
 
 .add-todo {
@@ -182,8 +171,8 @@ button > img {
 }
 
 .add-todo:hover {
-  color: var(--color-light);
-  background-color: var(--color-dark);
+  color: var(--color-white);
+  background-color: var(--color-light);
 }
 
 .add-project,
@@ -202,7 +191,7 @@ button > img {
 #todo-modal {
   border: 1px solid var(--color-highlight);
   border-radius: 5px;
-  background-color: var(--color-dark);
+  background-color: var(--color-light);
 }
 
 #project-modal {
@@ -272,8 +261,8 @@ label {
 
 .modal-buttons > button {
   padding: 4px 0;
-  background-color: var(--color-light);
+  background-color: var(--color-white);
   border: none;
   border-radius: 5px;
-  color: var(--color-dark);
+  color: var(--color-light);
 }
