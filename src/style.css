@@ -3,9 +3,12 @@
   --color-white: #ffffff;
   --color-light: #f2f4f3;
   --text-colour: #202020;
-  --sidebar-hover: #e1e4e3;
-  --sidebar-bgfocus: #e6f4f1;
-  --sidebar-txtfocus: #317b50;
+  --nav-hover: #e1e4e3;
+  --nav-bgfocus: #e6f4f1;
+  --nav-txtfocus: #317b50;
+
+  font-size: 16px;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 *:not(dialog) {
@@ -14,26 +17,72 @@
   box-sizing: border-box;
 }
 
-:root {
-  font-size: 16px;
-  font-family: sans-serif;
-}
-
 .container {
+  position: relative;
   display: grid;
-  grid-template-columns: 200px 1fr;
+  grid-template-columns: clamp(280px, 25%, 420px) 1fr;
   min-height: 100vh;
   background-color: var(--color-white);
 }
 
-.sidebar {
+nav {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 5px;
   align-items: center;
   background-color: var(--color-light);
-  padding: 12px 0;
+  padding: 1rem 0 1rem 1rem;
   color: var(--text-colour);
+  animation: sidebar-open 0.1s ease-out 1 forwards;
+}
+
+nav button,
+.toggle-sidebar {
+  background-color: inherit;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+.closed {
+  animation: sidebar-close 0.1s ease-out 1 forwards;
+
+}
+
+.closed + .toggle-sidebar {
+  position: fixed;
+  top: 5px;
+  left: 5px;
+  right: auto;
+  transform: none;
+  background-color: var(--color-white);
+}
+
+.sidebar-header {
+  align-self: stretch;
+  padding-left: 5px;
+}
+
+.toggle-sidebar {
+  position: absolute;
+  top: 0.8rem;
+  left: clamp(280px, 25%, 420px);
+  transform: translateX(-120%);
+  background-color: var(--color-light);
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.toggle-sidebar:hover {
+  background-color: var(--nav-hover);
+}
+
+.toggle-sidebar img {
+  width: 25px;
+  height: 25px;
+  display: block;
 }
 
 .project-display {
@@ -42,32 +91,69 @@
   width: 100%;
 }
 
+.show-projects {
+  color: #666666;
+}
+
+.project-list {
+  display:flex;
+  flex-direction: column;
+}
+
 .project-card {
   display: flex;
   align-items: center;
-  width: 100%;
+  gap: 8px;
+  align-self: stretch;
   height: 40px;
-  padding: 8px;
-  cursor: pointer;
+  padding-left: 5px;
+  border-radius: 5px 0 0 5px;
 }
 
 .project-card:hover {
-  background-color: var(--sidebar-hover);
+  background-color: var(--nav-hover);
 }
 
-.project-card h4 {
+.project-card.selected {
+  background-color: var(--nav-bgfocus);
+  color: var(--nav-txtfocus);
+}
+
+.project-icon {
+  width: 20px;
+  height: 20px;
+  transform: translateY(-1px);
+}
+
+.project-name {
   font-size: 1rem;
   pointer-events: none;
   user-select: none;
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 80%;
+  white-space: nowrap;
+  max-width: 100%;
 }
 
-.project-card.selected {
-  justify-content: space-between;
-  background-color: var(--sidebar-bgfocus);
-  color: var(--sidebar-txtfocus);
+
+.add-project {
+  color: var(--nav-txtfocus);
+  margin-right: 1rem;
+  border-radius: 5px;
+  transition: transform 0.1s ease-out;
+}
+
+.add-project:active {
+  transform: scale(0.9);
+  
+}
+
+.add-project img {
+  width: 20px;
+  height: 20px;
+  transform: translateY(-1px);
+  display: block;
+  
 }
 
 .main-display {
@@ -119,14 +205,13 @@ button {
 button > img {
   pointer-events: none;
   user-select: none;
-  color: var(--sidebar-txtfocus);
 }
 
 .delete-project {
   width: 20px;
   height: 20px;
   padding: 2px;
-  color: var(--sidebar-txtfocus); 
+  color: var(--nav-txtfocus); 
   transition: transform 0.3s ease-out;
 }
 
@@ -156,14 +241,6 @@ button > img {
   background-color: var(--color-btn-hover);
 }
 
-.add-project {
-  color: var(--text-colour);
-  border: 1px solid var(--text-colour);
-}
-
-.add-project:hover {
-  background-color: var(--sidebar-hover);
-}
 
 .add-todo {
   color: var(--color-medium);
@@ -175,7 +252,6 @@ button > img {
   background-color: var(--color-light);
 }
 
-.add-project,
 .add-todo {
   height: 36px;
   line-height: 36px;
@@ -265,4 +341,30 @@ label {
   border: none;
   border-radius: 5px;
   color: var(--color-light);
+}
+
+@keyframes sidebar-close {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+    visibility: visible;
+  }
+
+  100% {
+    transform: translatex(-100%);
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes sidebar-open {
+  0% {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translatex(0%);
+    opacity: 1;
+  }
 }

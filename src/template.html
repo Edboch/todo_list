@@ -7,12 +7,21 @@
   </head>
   <body>
     <div class="container">
-      <div class="sidebar">
-        <h2>Projects</h2>
-        <div class="project-display"></div>
-        <button type="button" class="add-project">Add Project</button>
+      <nav>
+        <h1 class="sidebar-header">Menu</h1>
+        <div class="project-display">
+          <button type="button" class="show-projects project-card">My Projects</button>
+          <div class="project-list"></div>
+        </div>
+        <div  class="add-project project-card">
+          <img src="./icons/plus.svg" alt="Add symbol"> 
+          <span>Add Project</span>
+        </div>
+      </nav>
+      <button class="toggle-sidebar" type="button"><img src="./icons/sidebar.png" alt="sidebar button"></button>
+      <div class="main-display">
+
       </div>
-      <div class="main-display"></div>
     </div>
 
     <dialog id="project-modal">

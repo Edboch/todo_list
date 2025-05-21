@@ -14,13 +14,23 @@ export const taskManager = (() => {
   }
 
   function setupEventListeners() {
+    setupSidebarToggle();
     setupProjectListeners();
     setupProjectModalListeners();
     setupTodoModalListeners();
   }
 
+  function setupSidebarToggle() {
+    const toggle = document.querySelector(".toggle-sidebar");
+    const sidebar = document.querySelector("nav");
+
+    toggle.addEventListener("click", () => {
+      const closed = sidebar.classList.toggle("closed");
+    })
+  }
+
   function setupProjectListeners() {
-    const projectDisplay = document.querySelector(".project-display");
+    const projectDisplay = document.querySelector(".project-list");
 
     projectDisplay.addEventListener("click", (event) => {
       const target = event.target;
