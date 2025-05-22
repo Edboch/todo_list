@@ -23,9 +23,11 @@ export const taskManager = (() => {
   function setupSidebarToggle() {
     const toggle = document.querySelector(".toggle-sidebar");
     const sidebar = document.querySelector("nav");
+    const container = document.querySelector(".container");
 
     toggle.addEventListener("click", () => {
       const closed = sidebar.classList.toggle("closed");
+      const sidebarClosed = container.classList.toggle("sidebar-closed");
     })
   }
 

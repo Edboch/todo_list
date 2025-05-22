@@ -23,6 +23,12 @@
   grid-template-columns: clamp(280px, 25%, 420px) 1fr;
   min-height: 100vh;
   background-color: var(--color-white);
+  transition: grid-template-columns 0.4s ease;
+}
+
+.sidebar-closed {
+  grid-template-columns: 0 1fr;
+  transition: grid-template-columns 0.3s ease;
 }
 
 nav {
@@ -33,7 +39,9 @@ nav {
   background-color: var(--color-light);
   padding: 1rem 0 1rem 1rem;
   color: var(--text-colour);
-  animation: sidebar-open 0.1s ease-out 1 forwards;
+  transform: translate(0,0);
+  visibility: visible;
+  transition: transform 0.3s ease, visibility 0s 0.1s ease;
 }
 
 nav button,
@@ -47,29 +55,29 @@ nav button,
 }
 
 .closed {
-  animation: sidebar-close 0.1s ease-out 1 forwards;
-
+  transform: translateX(-100%);
+  visibility: hidden;
+  transition: transform 0.3s ease, visibility 0.1s ease;
 }
 
-.closed + .toggle-sidebar {
-  position: fixed;
+.closed .toggle-sidebar {
+  visibility: visible;
+  opacity: 1;
+  position: absolute;
   top: 5px;
-  left: 5px;
-  right: auto;
+  right: -35px;
   transform: none;
   background-color: var(--color-white);
 }
 
 .sidebar-header {
+  display: flex;
+  justify-content: space-between;
   align-self: stretch;
-  padding-left: 5px;
+  padding: 0 1rem 0 5px;
 }
 
 .toggle-sidebar {
-  position: absolute;
-  top: 0.8rem;
-  left: clamp(280px, 25%, 420px);
-  transform: translateX(-120%);
   background-color: var(--color-light);
   padding: 5px;
   border-radius: 5px;
@@ -341,30 +349,4 @@ label {
   border: none;
   border-radius: 5px;
   color: var(--color-light);
-}
-
-@keyframes sidebar-close {
-  0% {
-    transform: translateX(0);
-    opacity: 1;
-    visibility: visible;
-  }
-
-  100% {
-    transform: translatex(-100%);
-    opacity: 0;
-    visibility: hidden;
-  }
-}
-
-@keyframes sidebar-open {
-  0% {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-
-  100% {
-    transform: translatex(0%);
-    opacity: 1;
-  }
 }
