@@ -69,6 +69,7 @@ export const taskManager = (() => {
     const addButton = document.querySelector(".add-project");
     const input = modal.querySelector("#project-name");
     const cancelButton = modal.querySelector(".cancel");
+    const closeButton = modal.querySelector(".close-modal");
 
     addButton.addEventListener("click", () => modal.showModal());
 
@@ -83,12 +84,18 @@ export const taskManager = (() => {
       clearModalForm(modal);
       modal.close();
     });
+
+    closeButton.addEventListener("click", () => {
+      clearModalForm(modal);
+      modal.close();
+    });
   }
 
   function setupTodoModalListeners() {
     const modal = document.querySelector("#todo-modal");
     const form = modal.querySelector("#todo-form");
     const cancelButton = modal.querySelector(".cancel");
+    const closeButton = modal.querySelector(".close-modal");
 
     form.addEventListener("submit", () => {
       const editing = modal.getAttribute("data-edit-index");
@@ -107,6 +114,11 @@ export const taskManager = (() => {
       modal.removeAttribute("data-edit-index");
       modal.close();
       clearModalForm(modal);
+    });
+
+    closeButton.addEventListener("click", () => {
+      clearModalForm(modal);
+      modal.close();
     });
   }
 
