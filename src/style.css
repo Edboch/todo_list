@@ -155,54 +155,62 @@ button {
   
 }
 
-.add-project img {
-  width: 20px;
-  height: 20px;
-  display: block;
-  
-}
 
 .main-display {
   grid-column: 2;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin: 56px 0;
+  /* align-items: center; */
+  margin: 56px auto;
   gap: 16px;
 }
 
 .task-display {
   display: flex;
   flex-direction: column;
-  gap: 12px;
   width: clamp(800px, 50vw, 1200px);
 }
 
-.task-header,
 .task-card {
-  display: grid;
-  align-items: center;
-  grid-template-columns: 1fr 2fr 1fr 1fr 1fr 80px;
-  gap: 8px;
-  padding: 12px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
   border-radius: 4px;
-}
-
-.task-header {
-  background-color: var(--color-light);
-  color: var(--text-colour);
-}
-
-.task-card {
-  background-color: var(--color-bg-main);
-  border: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--nav-hover);
+  padding: 10px 0;
 }
 
 .task-card p {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: var(--text-colour);
+}
+.text-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+.tag-wrapper {
+  display: flex;
+  gap: 5px;
+
+}
+
+.description,
+.due-date,
+.priority {
+  font-size: 0.9rem;
+}
+
+.description {
+  color: #666666;
+}
+
+.task-card-buttons {
+  position: absolute;
+  top: 0;
+  right: -60px;
 }
 
 button {
@@ -250,25 +258,18 @@ button > img {
 
 
 .add-task {
-  color: var(--color-medium);
-  border: 1px solid var(--color-medium);
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: #666666;
+  align-self: start;
 }
 
 .add-task:hover {
-  color: var(--color-white);
-  background-color: var(--color-light);
+  color: var(--nav-txtfocus);
 }
 
-.add-task {
-  height: 36px;
-  line-height: 36px;
-  white-space: nowrap;
-  background: none;
-  border-radius: 4px;
-  font-size: 1rem;
-  font-weight: 600;
-  padding: 0 16px;
-}
+
 
 #project-modal,
 #task-modal {
@@ -307,10 +308,13 @@ button > img {
   font-size: 1rem;
 }
 
+.add-task img,
+.add-project img,
 .close-modal img{
   width: 20px;
   height: 20px;
   display: block;
+  transform: translateY(-1px);
 }
 
 .close-modal:hover {

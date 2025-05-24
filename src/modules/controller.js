@@ -124,6 +124,7 @@ export const controller = (() => {
     }
 
     renderTasks.init();
+    renderTasks.updateTitle(projectList[activeProjectIndex].name);
     updateTaskDisplay();
     setupTaskListeners();
   }
@@ -238,6 +239,7 @@ export const controller = (() => {
 
   function updateTaskDisplay() {
     renderTasks.render(projectList[activeProjectIndex].taskList);
+    console.log(projectList[activeProjectIndex].name);
   }
 
   return { init };
