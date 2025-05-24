@@ -1,6 +1,6 @@
-import { taskManager } from "./modules/taskManager.js";
+import { controller } from "./modules/controller.js";
 import "./style.css";
 
 document.addEventListener("DOMContentLoaded", () => {
-  taskManager.init();
+  controller.init();
 });

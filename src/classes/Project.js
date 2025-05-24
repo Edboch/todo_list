@@ -1,18 +1,18 @@
 export class Project {
   constructor(name) {
     this.name = name;
-    this.todos = [];
+    this.tasks = [];
   }
 
-  addTodo(todo) {
-    this.todos.push(todo);
+  addTask(task) {
+    this.tasks.push(task);
   }
 
-  removeTodo(index) {
-    this.todos.splice(index, 1);
+  removeTask(index) {
+    this.tasks.splice(index, 1);
   }
 
-  get todoList() {
-    return this.todos;
+  get taskList() {
+    return this.tasks;
   }
 }

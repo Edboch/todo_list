@@ -1,29 +1,29 @@
 import CloseIcon from "../icons/close.svg";
 import PencilIcon from "../icons/pencil.svg";
 
-export const renderTodos = (() => {
-  // Main container for todo display
+export const renderTasks = (() => {
+  // Main container for task display
   const display = document.querySelector(".main-display");
 
-  // Initialize the todo section UI
+  // Initialize the task section UI
   function init() {
     const container = document.createElement("div");
-    container.classList.add("todo-display");
+    container.classList.add("task-display");
     clear();
     addTitle();
     display.append(container);
     addButton();
   }
 
-  // Update the todo list display
-  function render(todoList) {
+  // Update the task list display
+  function render(taskList) {
     clearList();
-    displayList(todoList);
+    displayList(taskList);
   }
 
-  // Create and display cards for each todo
-  function displayList(todoList) {
-    const container = document.querySelector(".todo-display");
+  // Create and display cards for each task
+  function displayList(taskList) {
+    const container = document.querySelector(".task-display");
 
     const header = document.createElement("div");
     const title = document.createElement("h4");
@@ -32,7 +32,7 @@ export const renderTodos = (() => {
     const priority = document.createElement("h4");
     const completed = document.createElement("h4");
 
-    header.classList.add("todo-header");
+    header.classList.add("task-header");
     title.textContent = "Title";
     desc.textContent = "Description";
     date.textContent = "Due Date";
@@ -42,14 +42,14 @@ export const renderTodos = (() => {
     header.append(title, desc, date, priority, completed);
     container.append(header);
 
-    todoList.forEach((todo, index) => {
-      const card = createCard(todo, index);
+    taskList.forEach((task, index) => {
+      const card = createCard(task, index);
       container.append(card);
     });
   }
 
-  // Create a card element for a todo item
-  function createCard(todo, index) {
+  // Create a card element for a task item
+  function createCard(task, index) {
     const card = document.createElement("div");
     const title = document.createElement("p");
     const desc = document.createElement("p");
@@ -60,25 +60,25 @@ export const renderTodos = (() => {
     const editBtn = document.createElement("button");
     const buttons = document.createElement("div");
 
-    card.classList.add("todo-card");
+    card.classList.add("task-card");
     card.setAttribute("data-index", index);
     title.classList.add("name");
     desc.classList.add("description");
     date.classList.add("due-date");
     priority.classList.add("priority");
     completed.classList.add("completed");
-    delBtn.classList.add("delete-todo");
+    delBtn.classList.add("delete-task");
     delBtn.setAttribute("data-index", index);
-    editBtn.classList.add("edit-todo");
+    editBtn.classList.add("edit-task");
     editBtn.setAttribute("data-index", index);
-    buttons.classList.add("todo-card-buttons");
+    buttons.classList.add("task-card-buttons");
 
-    // Populate card with todo data
-    title.textContent = todo.title || "-";
-    desc.textContent = todo.description || "-";
-    date.textContent = todo.dueDate || "-";
-    priority.textContent = todo.priority || "-";
-    completed.textContent = todo.completed ? "Completed" : "Not Done";
+    // Populate card with task data
+    title.textContent = task.title || "-";
+    desc.textContent = task.description || "-";
+    date.textContent = task.dueDate || "-";
+    priority.textContent = task.priority || "-";
+    completed.textContent = task.completed ? "Completed" : "Not Done";
 
     delBtn.innerHTML = `<img src="${CloseIcon}"/>`;
     editBtn.innerHTML = `<img src="${PencilIcon}"/>`;
@@ -89,30 +89,30 @@ export const renderTodos = (() => {
     return card;
   }
 
-  // Add the "Add Todo" button to the display
+  // Add the "Add Task" button to the display
   function addButton() {
     const btn = document.createElement("button");
     btn.setAttribute("type", "button");
-    btn.classList.add("add-todo");
-    btn.textContent = "Add Todo";
+    btn.classList.add("add-task");
+    btn.textContent = "Add Task";
     display.append(btn);
   }
 
   // Add the section title
   function addTitle() {
     const title = document.createElement("h2");
-    title.textContent = "Todos";
+    title.textContent = "Tasks";
     display.append(title);
   }
 
-  // Clear the entire todo section
+  // Clear the entire task section
   function clear() {
     display.innerHTML = "";
   }
 
-  // Clear only the todo list, preserving title and button
+  // Clear only the task list, preserving title and button
   function clearList() {
-    const container = document.querySelector(".todo-display");
+    const container = document.querySelector(".task-display");
     if (container) {
       container.innerHTML = "";
     }

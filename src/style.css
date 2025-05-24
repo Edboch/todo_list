@@ -23,12 +23,12 @@
   grid-template-columns: clamp(280px, 25%, 420px) 1fr;
   min-height: 100vh;
   background-color: var(--color-white);
-  transition: grid-template-columns 0.4s ease;
+  transition: grid-template-columns 0.5s ease;
 }
 
 .sidebar-closed {
   grid-template-columns: 0 1fr;
-  transition: grid-template-columns 0.3s ease;
+  transition: grid-template-columns 0.5s ease;
 }
 
 nav {
@@ -39,9 +39,9 @@ nav {
   background-color: var(--color-light);
   padding: 1rem 0 1rem 1rem;
   color: var(--text-colour);
-  transform: translate(0,0);
+  transform: translateX(0);
   visibility: visible;
-  transition: transform 0.3s ease, visibility 0s 0.1s ease;
+  transition: transform 0.5s ease, visibility 0s 0.1s ease;
 }
 
 button {
@@ -54,19 +54,19 @@ button {
 }
 
 .closed {
+  position: absolute;
+  width: clamp(280px, 25%, 420px);
+  height: 100vh;
   transform: translateX(-100%);
   visibility: hidden;
-  transition: transform 0.3s ease, visibility 0.1s ease;
+  transition: transform 0.5s ease, visibility 0.5s ease;
 }
 
 .closed .toggle-sidebar {
   visibility: visible;
-  opacity: 1;
-  position: absolute;
-  top: 5px;
-  right: -35px;
-  transform: none;
+  transform: translateX(150%);
   background-color: var(--color-white);
+  transition: transform 0.4s 0.1s ease;
 }
 
 .sidebar-header {
@@ -163,6 +163,7 @@ button {
 }
 
 .main-display {
+  grid-column: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -170,15 +171,15 @@ button {
   gap: 16px;
 }
 
-.todo-display {
+.task-display {
   display: flex;
   flex-direction: column;
   gap: 12px;
   width: clamp(800px, 50vw, 1200px);
 }
 
-.todo-header,
-.todo-card {
+.task-header,
+.task-card {
   display: grid;
   align-items: center;
   grid-template-columns: 1fr 2fr 1fr 1fr 1fr 80px;
@@ -187,17 +188,17 @@ button {
   border-radius: 4px;
 }
 
-.todo-header {
+.task-header {
   background-color: var(--color-light);
   color: var(--text-colour);
 }
 
-.todo-card {
+.task-card {
   background-color: var(--color-bg-main);
   border: 1px solid var(--color-border);
 }
 
-.todo-card p {
+.task-card p {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -225,16 +226,16 @@ button > img {
   transform: scale(1.3);
 }
 
-.delete-todo,
-.edit-todo,
+.delete-task,
+.edit-task,
 .delete-project {
   border: none;
   border-radius: 50%;
   background: none;
 }
 
-.delete-todo,
-.edit-todo {
+.delete-task,
+.edit-task {
   width: 30px;
   height: 30px;
   padding: 5px;
@@ -242,23 +243,23 @@ button > img {
   border: 1px solid var(--color-border);
 }
 
-.delete-todo:hover,
-.edit-todo:hover {
+.delete-task:hover,
+.edit-task:hover {
   background-color: var(--color-btn-hover);
 }
 
 
-.add-todo {
+.add-task {
   color: var(--color-medium);
   border: 1px solid var(--color-medium);
 }
 
-.add-todo:hover {
+.add-task:hover {
   color: var(--color-white);
   background-color: var(--color-light);
 }
 
-.add-todo {
+.add-task {
   height: 36px;
   line-height: 36px;
   white-space: nowrap;
@@ -270,7 +271,7 @@ button > img {
 }
 
 #project-modal,
-#todo-modal {
+#task-modal {
   border: 1px solid var(--color-highlight);
   border-radius: 5px;
   background-color: var(--color-white);
@@ -280,13 +281,13 @@ button > img {
   width: 320px;
 }
 
-#todo-modal {
+#task-modal {
   width: 320px;
   height: 600px;
 }
 
 #project-form,
-#todo-form {
+#task-form {
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -398,12 +399,12 @@ button.cancel:hover {
 
 dialog:open {
   opacity: 1;
-  transform: translateY(-50%);
+  transform: translateY(0%);
 }
 
 dialog {
   opacity: 0;
-  transform: translateY(0);
+  transform: translateY(-50%);
   transition: opacity 0.5s ease-out,
     transform 0.5s ease-out,
     overlay 0.5s ease-out allow-discrete,
@@ -413,6 +414,6 @@ dialog {
 @starting-style {
   dialog:open {
     opacity: 0;;
-    transform: translateY(-50%);
+    transform: translateY(0%);
   }
 }

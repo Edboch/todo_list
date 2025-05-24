@@ -1,5 +1,5 @@
 import { Project } from "../classes/Project.js";
-import { Todo } from "../classes/Todo.js";
+import { Task } from "../classes/Task.js";
 
 export function saveToStorage(key, value) {
   localStorage.setItem(key, JSON.stringify(value));
@@ -17,8 +17,8 @@ export function loadProjects() {
 
   const projectList = data.map((projectData) => {
     const project = Object.assign(new Project(), projectData);
-    // Reconstruct todo objects properly
-    project.todoList.map((todoData) => Object.assign(new Todo(), todoData));
+    // Reconstruct task objects properly
+    project.taskList.map((taskData) => Object.assign(new Task(), taskData));
     return project;
   });
 
