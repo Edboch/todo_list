@@ -141,7 +141,7 @@ export const controller = (() => {
 
     taskDisplay.addEventListener("click", (event) => {
       const target = event.target;
-      if (target.classList.contains("delete-task")) {
+      if (target.classList.contains("completion-toggle")) {
         const index = target.getAttribute("data-index");
         deleteTask(index);
         updateTaskDisplay();
@@ -160,13 +160,11 @@ export const controller = (() => {
     const desc = modal.querySelector("#desc");
     const date = modal.querySelector("#due-date");
     const priority = modal.querySelector("#priority");
-    const completed = modal.querySelector("#completed");
 
     title.value = task.title;
     desc.value = task.description;
     date.value = task.dueDate;
     priority.value = task.priority;
-    completed.checked = task.completed;
     modal.showModal();
     modal.setAttribute("data-edit-index", index);
   }
@@ -209,7 +207,7 @@ export const controller = (() => {
       modal.querySelector("#desc").value,
       modal.querySelector("#due-date").value,
       modal.querySelector("#priority").value,
-      modal.querySelector("#completed").checked,
+      false
     );
     projectList[activeProjectIndex].addTask(task);
     saveToStorage("projectList", projectList);
@@ -223,7 +221,6 @@ export const controller = (() => {
     task.description = modal.querySelector("#desc").value;
     task.dueDate = modal.querySelector("#due-date").value;
     task.priority = modal.querySelector("#priority").value;
-    task.completed = modal.querySelector("#completed").checked;
     saveToStorage("projectList", projectList);
   }
 

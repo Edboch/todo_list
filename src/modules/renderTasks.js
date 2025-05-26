@@ -42,10 +42,10 @@ export const renderTasks = (() => {
     const desc = document.createElement("p");
     const date = document.createElement("p");
     const priority = document.createElement("p");
-    // const completed = document.createElement("p");
-    const delBtn = document.createElement("button");
+    const completionToggle = document.createElement("input");
     const editBtn = document.createElement("button");
     const buttons = document.createElement("div");
+    const taskBody = document.createElement("div")
     const textWrapper = document.createElement("div");
     const tagWrapper = document.createElement("div");
 
@@ -55,22 +55,20 @@ export const renderTasks = (() => {
     desc.classList.add("description");
     date.classList.add("due-date");
     priority.classList.add("priority");
-    // completed.classList.add("completed");
-    delBtn.classList.add("delete-task");
-    delBtn.setAttribute("data-index", index);
+    completionToggle.type = "checkbox";
+    completionToggle.classList.add("completion-toggle")
+    completionToggle.setAttribute("data-index", index);
     editBtn.classList.add("edit-task");
     editBtn.setAttribute("data-index", index);
     buttons.classList.add("task-card-buttons");
+    taskBody.classList.add("task-body");
     textWrapper.classList.add("text-wrapper");
     tagWrapper.classList.add("tag-wrapper");
 
-    // Populate card with task data
     title.textContent = task.title;
     desc.textContent = task.description;
-    console.log(task.dueDate)
     date.textContent = task.dueDate? new Date(task.dueDate).toLocaleDateString('en-gb', dateFormat) : '';
     priority.textContent = task.priority;
-    // completed.textContent = task.completed ? "Completed" : "Not Done";
 
     textWrapper.append(title);
     if (desc.textContent) textWrapper.append(desc);
@@ -78,13 +76,14 @@ export const renderTasks = (() => {
     if (priority.textContent) tagWrapper.append(priority);
 
     editBtn.innerHTML = `<img src="${PencilIcon}"/>`;
-    delBtn.innerHTML = `<img src="${CloseIcon}"/>`;
 
-    buttons.append(editBtn,delBtn);
+    buttons.append(editBtn);
 
-    card.append(textWrapper);
-    if (tagWrapper.hasChildNodes()) card.append(tagWrapper);
-    card.append(buttons)
+    card.append(completionToggle);
+    taskBody.append(textWrapper)
+    if (tagWrapper.hasChildNodes()) taskBody.append(tagWrapper);
+    card.append(taskBody);
+    card.append(buttons);
     return card;
   }
 

@@ -160,36 +160,75 @@ button {
   grid-column: 2;
   display: flex;
   flex-direction: column;
-  /* align-items: center; */
+
   margin: 56px auto;
+  padding: 0 100px;
   gap: 16px;
 }
 
 .task-display {
   display: flex;
   flex-direction: column;
-  width: clamp(800px, 50vw, 1200px);
+  width: clamp(600px, 50vw, 900px);
 }
 
 .task-card {
   position: relative;
   display: flex;
-  flex-direction: column;
-  gap: 5px;
+  gap: 10px;
   border-radius: 4px;
   border-bottom: 1px solid var(--nav-hover);
-  padding: 10px 0;
+  padding: 10px 0;  
+  max-width: 100%;
 }
 
-.task-card p {
+.text-wrapper p {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+.task-body {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  flex: 1;
+  min-width: 0;
+}
+
+.completion-toggle {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  appearance: none;
+  border: 1px solid #333;
+  border-radius: 50%;
+  cursor: pointer;
+  position: relative;
+}
+
+.completion-toggle:active {
+  transform: scale(120%);
+  transition: translate 0.2s ease;
+}
+
+.completion-toggle:hover::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  height: 10px;
+  width: 10px;
+  background-color: var(--nav-txtfocus);
+  border-radius: 50%;
+}
+
 .text-wrapper {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
+  flex: 1;
+  min-width: 0;
+  padding-top: 3px;
 }
 .tag-wrapper {
   display: flex;
@@ -207,11 +246,6 @@ button {
   color: #666666;
 }
 
-.task-card-buttons {
-  position: absolute;
-  top: 0;
-  right: -60px;
-}
 
 button {
   font-family: sans-serif;
@@ -253,7 +287,7 @@ button > img {
 
 .delete-task:hover,
 .edit-task:hover {
-  background-color: var(--color-btn-hover);
+  background-color: var(--nav-hover);
 }
 
 
